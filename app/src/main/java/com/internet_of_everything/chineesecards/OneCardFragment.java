@@ -52,6 +52,17 @@ public class OneCardFragment extends Fragment {
         //.replaceAll("\\s", "")
         final String[] russianVar = russianVarString.split(",");
 
+        //регуируем размер шрифта иероглифов
+        if (hieroglyph.length()==1){
+            hieroTW.setTextSize(170);
+        } else {
+            if (hieroglyph.length()==2){
+                hieroTW.setTextSize(130);
+            } else {
+                hieroTW.setTextSize(100);
+            }
+        }
+
 
         //скрыть клавиатуру при клике за пределами поля ввода
         rootView.setOnTouchListener(new View.OnTouchListener() {

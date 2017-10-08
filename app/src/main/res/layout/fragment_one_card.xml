@@ -73,7 +73,6 @@
             android:layout_weight="0.07"
             android:textAlignment="center"
             android:textColor="@android:color/black"
-            android:textSize="130sp"
             android:visibility="visible" />
 
         <TextView
