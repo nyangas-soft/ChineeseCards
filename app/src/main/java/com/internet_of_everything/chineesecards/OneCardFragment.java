@@ -101,6 +101,16 @@ public class OneCardFragment extends Fragment {
                     }
                 }
                 //иероглиф
+                //регуируем размер шрифта иероглифов
+                if (hieroET.getText().toString().length()==1){
+                    hieroET.setTextSize(170);
+                } else {
+                    if (hieroET.getText().toString().length()==2){
+                        hieroET.setTextSize(130);
+                    } else {
+                        hieroET.setTextSize(100);
+                    }
+                }
                 if ((hieroET.getVisibility()==View.VISIBLE)&&!("".equals(hieroET.getText().toString()))) {
                     if (hieroglyph.equalsIgnoreCase(hieroET.getText().toString())) {
                         hieroET.setTextColor(Color.GREEN);
@@ -152,6 +162,16 @@ public class OneCardFragment extends Fragment {
                     @Override
                     public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
                         if (actionId == EditorInfo.IME_ACTION_DONE) {
+                            //регуируем размер шрифта иероглифов
+                            if (hieroET.getText().toString().length()==1){
+                                hieroET.setTextSize(170);
+                            } else {
+                                if (hieroET.getText().toString().length()==2){
+                                    hieroET.setTextSize(130);
+                                } else {
+                                    hieroET.setTextSize(100);
+                                }
+                            }
                             if (hieroglyph.equalsIgnoreCase(hieroET.getText().toString()))
                             {
                                 hieroET.setTextColor(Color.GREEN);
