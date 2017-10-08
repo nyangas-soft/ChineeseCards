@@ -48,7 +48,11 @@ public class OneCardFragment extends Fragment {
         final String russianString = getArguments().getString("RUS_ARG").replaceAll("\\[", "").replaceAll("\\]", "").replaceAll("\"", "").toString();
         //.replaceAll("\\s", "")
         final String[] russian = russianString.split(",");
-        final String russianVarString = getArguments().getString("RUS_VAR").replaceAll("\\[", "").replaceAll("\\]", "").replaceAll("\"", "").toString();
+        String str="";
+        try {
+            str=getArguments().getString("RUS_VAR").replaceAll("\\[", "").replaceAll("\\]", "").replaceAll("\"", "").toString();
+        } catch (NullPointerException e){}
+        final String russianVarString = str;
         //.replaceAll("\\s", "")
         final String[] russianVar = russianVarString.split(",");
 
