@@ -45,9 +45,9 @@ public class OneCardFragment extends Fragment {
 
         //получаем знаечения из MainActivity
         final String hieroglyph = getArguments().getString("HIERO_ARG");
-        final String pinyin = getArguments().getString("PINYIN_ARG");
+        final String pinyin = getArguments().getString("PINYIN_ARG").toLowerCase();
         final String pinyin_dig = getArguments().getString("PINYIN_DIG");
-        final String russianString = getArguments().getString("RUS_ARG").replaceAll("\\[", "").replaceAll("\\]", "").replaceAll("\"", "").toString();
+        final String russianString = getArguments().getString("RUS_ARG").replaceAll("\\[", "").replaceAll("\\]", "").replaceAll("\"", "").toString().toLowerCase();
         //.replaceAll("\\s", "")
         final String[] russian = russianString.split(",");
         String str="";
