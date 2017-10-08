@@ -42,7 +42,6 @@ public class OneCardFragment extends Fragment {
         TextView pinyinTW = (TextView) rootView.findViewById(R.id.pinyin);
         final EditText pinyinET = (EditText) rootView.findViewById(R.id.editPinyin);
 
-
         //получаем знаечения из MainActivity
         final String hieroglyph = getArguments().getString("HIERO_ARG");
         final String pinyin = getArguments().getString("PINYIN_ARG").toLowerCase();

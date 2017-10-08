@@ -55,18 +55,43 @@ public class MainActivity extends AppCompatActivity {
         } else {
             backButton.setVisibility(android.view.View.VISIBLE);
         }
+        mPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+                ImageButton backButton = (ImageButton)findViewById(R.id.button_back);
+                ImageButton nextButton = (ImageButton)findViewById(R.id.button_next);
+                if (mPager.getCurrentItem()==0) {
+                    backButton.setVisibility(android.view.View.INVISIBLE);
+                } else {
+                    backButton.setVisibility(android.view.View.VISIBLE);
+                }
+                if (mPager.getCurrentItem()==mPager.getAdapter().getCount()-1) {
+                    nextButton.setVisibility(android.view.View.INVISIBLE);
+                } else {
+                    nextButton.setVisibility(android.view.View.VISIBLE);
+                }
+            }
+
+        });
+
         ImageButton nextButton = (ImageButton)findViewById(R.id.button_next);
-        if (mPager.getCurrentItem()==mPager.getAdapter().getCount()-1) {
-            nextButton.setVisibility(android.view.View.INVISIBLE);
-        } else {
-            nextButton.setVisibility(android.view.View.VISIBLE);
-        }
+
         backButton.setOnClickListener(new android.view.View.OnClickListener() {
 
             @Override
             public void onClick(View view) {
                 mPager.setCurrentItem(mPager.getCurrentItem()-1, true);
-                ImageButton backButton = (ImageButton)findViewById(R.id.button_back);
+                /*ImageButton backButton = (ImageButton)findViewById(R.id.button_back);
                 if (mPager.getCurrentItem()==0) {
                     backButton.setVisibility(android.view.View.INVISIBLE);
                 } else {
@@ -77,7 +102,7 @@ public class MainActivity extends AppCompatActivity {
                     nextButton.setVisibility(android.view.View.INVISIBLE);
                 } else {
                     nextButton.setVisibility(android.view.View.VISIBLE);
-                }
+                }*/
             }
         });
 
@@ -88,7 +113,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 mPager.setCurrentItem(mPager.getCurrentItem()+1, true);
-                ImageButton backButton = (ImageButton)findViewById(R.id.button_back);
+                /*ImageButton backButton = (ImageButton)findViewById(R.id.button_back);
                 if (mPager.getCurrentItem()==0) {
                     backButton.setVisibility(android.view.View.INVISIBLE);
                 } else {
@@ -99,7 +124,7 @@ public class MainActivity extends AppCompatActivity {
                     nextButton.setVisibility(android.view.View.INVISIBLE);
                 } else {
                     nextButton.setVisibility(android.view.View.VISIBLE);
-                }
+                }*/
             }
         });
     }
