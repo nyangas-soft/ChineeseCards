@@ -4,7 +4,7 @@
     "hieroglyph": "看见",
     "pinyin": "Kànjiàn",
      "pinyin_num": "Ka4njia4n",
-    "russian": ["видеть", "увидеть"],
+    "russian": ["видеть"],
      "russian_var": [""],
      "hsk": "1"
    },
@@ -14,7 +14,7 @@
     "hieroglyph": "外",
     "pinyin": "wài",
      "pinyin_num": "wa4i",
-    "russian": ["иностранный", "внешний"],
+    "russian": ["иностранный", "внешний", "увидеть"],
      "russian_var": [""],
      "hsk": "2"
    },

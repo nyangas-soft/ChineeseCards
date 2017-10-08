@@ -2,7 +2,9 @@ package com.internet_of_everything.chineesecards;
 
 import android.graphics.Color;
 import android.os.Bundle;
+import android.renderscript.ScriptGroup;
 import android.support.v4.app.Fragment;
+import android.text.InputType;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
@@ -232,7 +234,19 @@ public class OneCardFragment extends Fragment {
 
             //если выбрано отображение русского перевода
             if (WhatToShow.getWhatToShow()[2]) {
-                russianTW.setText(russianString);
+                if (russian.length<2){
+                    russianTW.setText(russianString);
+                } else {
+                    russianTW.setMaxLines(russian.length);
+                    String str1="";
+                    for (int i=0; i<russian.length-1;i++)
+                    {
+                        str1+=russian[i]+"\n";
+                    }
+                    str1+=russian[russian.length-1];
+                    russianTW.setText(str1);
+                }
+
                 rusET.setVisibility(View.INVISIBLE);
             } else {
                 russianTW.setVisibility(View.INVISIBLE);
