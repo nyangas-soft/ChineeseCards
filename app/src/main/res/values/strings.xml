@@ -1,0 +1,14 @@
+<resources>
+    <string name="app_name">ChineeseCards</string>
+    <string name="settings">settings</string>
+    <string name="file">assets/chineesecardsdata.json</string>
+    <string name="dialog_title">Показать</string>
+    <string name="show_hiero">иероглифы</string>
+    <string name="show_pinyin">пиньинь</string>
+    <string name="show_rus">перевод</string>
+    <string name="edit_hiero">字</string>
+    <string name="edit_pinyin">пиньинь</string>
+    <string name="edit_rus">перевод</string>
+    <string name="relax">Просто созерцайте</string>
+    <string name="right_answer">Правильный ответ: </string>
+</resources>
