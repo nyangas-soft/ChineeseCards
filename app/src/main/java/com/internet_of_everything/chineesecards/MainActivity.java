@@ -2,6 +2,7 @@ package com.internet_of_everything.chineesecards;
 
 import android.content.Context;
 import android.content.DialogInterface;
+import android.media.Image;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -13,8 +14,13 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
+import android.widget.ImageButton;
 
 import org.json.JSONException;
+
+import static com.internet_of_everything.chineesecards.R.styleable.View;
 
 //главная активность
 public class MainActivity extends AppCompatActivity {
@@ -32,6 +38,7 @@ public class MainActivity extends AppCompatActivity {
     public static MainActivity context=null;
 
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,7 +49,35 @@ public class MainActivity extends AppCompatActivity {
         mPager = (ViewPager) findViewById(R.id.pager);
         mPagerAdapter = new OneCardAdapter(getSupportFragmentManager());
         mPager.setAdapter(mPagerAdapter);
+        ImageButton backButton = (ImageButton)findViewById(R.id.button_back);
+        backButton.setOnClickListener(new android.view.View.OnClickListener() {
+
+            @Override
+            public void onClick(View view) {
+                mPager.setCurrentItem(mPager.getCurrentItem()-1, true);
+            }
+        });
+
+        ImageButton nextButton = (ImageButton)findViewById(R.id.button_next);
+
+        nextButton.setOnClickListener(new android.view.View.OnClickListener() {
+
+            @Override
+            public void onClick(View view) {
+                mPager.setCurrentItem(mPager.getCurrentItem()+1, true);
+            }
+        });
     }
+   /* @Override
+    protected void onResume(){
+        super.onResume();
+        ImageButton backButton = (ImageButton)findViewById(R.id.button_back);
+        if (mPager.getCurrentItem()==0) {
+            backButton.setVisibility(android.view.View.INVISIBLE);
+        } else {
+            backButton.setVisibility(android.view.View.VISIBLE);
+        }
+    }*/
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -142,6 +177,8 @@ public class MainActivity extends AppCompatActivity {
         public int getItemPosition(Object object){
             return POSITION_NONE;
         }
+
+
     }
 
 }
