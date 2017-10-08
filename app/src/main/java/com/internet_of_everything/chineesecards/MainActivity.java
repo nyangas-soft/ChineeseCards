@@ -50,21 +50,56 @@ public class MainActivity extends AppCompatActivity {
         mPagerAdapter = new OneCardAdapter(getSupportFragmentManager());
         mPager.setAdapter(mPagerAdapter);
         ImageButton backButton = (ImageButton)findViewById(R.id.button_back);
+        if (mPager.getCurrentItem()==0) {
+            backButton.setVisibility(android.view.View.INVISIBLE);
+        } else {
+            backButton.setVisibility(android.view.View.VISIBLE);
+        }
+        ImageButton nextButton = (ImageButton)findViewById(R.id.button_next);
+        if (mPager.getCurrentItem()==mPager.getAdapter().getCount()-1) {
+            nextButton.setVisibility(android.view.View.INVISIBLE);
+        } else {
+            nextButton.setVisibility(android.view.View.VISIBLE);
+        }
         backButton.setOnClickListener(new android.view.View.OnClickListener() {
 
             @Override
             public void onClick(View view) {
                 mPager.setCurrentItem(mPager.getCurrentItem()-1, true);
+                ImageButton backButton = (ImageButton)findViewById(R.id.button_back);
+                if (mPager.getCurrentItem()==0) {
+                    backButton.setVisibility(android.view.View.INVISIBLE);
+                } else {
+                    backButton.setVisibility(android.view.View.VISIBLE);
+                }
+                ImageButton nextButton = (ImageButton)findViewById(R.id.button_next);
+                if (mPager.getCurrentItem()==mPager.getAdapter().getCount()-1) {
+                    nextButton.setVisibility(android.view.View.INVISIBLE);
+                } else {
+                    nextButton.setVisibility(android.view.View.VISIBLE);
+                }
             }
         });
 
-        ImageButton nextButton = (ImageButton)findViewById(R.id.button_next);
+
 
         nextButton.setOnClickListener(new android.view.View.OnClickListener() {
 
             @Override
             public void onClick(View view) {
                 mPager.setCurrentItem(mPager.getCurrentItem()+1, true);
+                ImageButton backButton = (ImageButton)findViewById(R.id.button_back);
+                if (mPager.getCurrentItem()==0) {
+                    backButton.setVisibility(android.view.View.INVISIBLE);
+                } else {
+                    backButton.setVisibility(android.view.View.VISIBLE);
+                }
+                ImageButton nextButton = (ImageButton)findViewById(R.id.button_next);
+                if (mPager.getCurrentItem()==mPager.getAdapter().getCount()-1) {
+                    nextButton.setVisibility(android.view.View.INVISIBLE);
+                } else {
+                    nextButton.setVisibility(android.view.View.VISIBLE);
+                }
             }
         });
     }
