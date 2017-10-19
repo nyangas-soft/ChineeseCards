@@ -1058,7 +1058,7 @@
     "hieroglyph": "学校",
     "pinyin": "xuéxiào",
     "pinyin_num": "xue2xia4o",
-    "russian": ["школа"],
+    "russian": ["школа", "учебное заведение"],
     "russian_var": [""],
     "hsk": "1"
   },
@@ -1362,5 +1362,490 @@
     "russian": ["слушать"],
     "russian_var": [""],
     "hsk": "1"
+  },
+  {
+    "id": "152",
+    "hieroglyph": "喜欢",
+    "pinyin": "xǐhuan",
+    "pinyin_num": "xi3huan",
+    "russian": ["нравиться", "любить", "радоваться"],
+    "russian_var": [""],
+    "hsk": "1"
+  },
+  {
+    "id": "153",
+    "hieroglyph": "会",
+    "pinyin": "huì",
+    "pinyin_num": "hui4",
+    "russian": ["уметь", "собрание"],
+    "russian_var": ["мочь"],
+    "hsk": "1"
+  },
+  {
+    "id": "154",
+    "hieroglyph": "打电话",
+    "pinyin": "dǎ diànhuà",
+    "pinyin_num": "da3 dia4nhua4",
+    "russian": ["звонить по телефону"],
+    "russian_var": [""],
+    "hsk": "1"
+  },
+  {
+    "id": "155",
+    "hieroglyph": "爱",
+    "pinyin": "ài",
+    "pinyin_num": "a4i",
+    "russian": ["любить"],
+    "russian_var": [""],
+    "hsk": "1"
+  },{
+    "id": "156",
+    "hieroglyph": "上午",
+    "pinyin": "shàngwǔ",
+    "pinyin_num": "sha4ngwu3",
+    "russian": ["до обеда"],
+    "russian_var": ["до полудня", "в первой половине дня"],
+    "hsk": "1"
+  },
+  {
+    "id": "157",
+    "hieroglyph": "岁",
+    "pinyin": "suì",
+    "pinyin_num": "sui4",
+    "russian": ["год", "возраст"],
+    "russian_var": [""],
+    "hsk": "1"
+  },
+  {
+    "id": "158",
+    "hieroglyph": "下午",
+    "pinyin": "xiàwǔ",
+    "pinyin_num": "xia4wu3",
+    "russian": ["после обеда"],
+    "russian_var": [""],
+    "hsk": "1"
+  },
+  {
+    "id": "159",
+    "hieroglyph": "猫",
+    "pinyin": "māo",
+    "pinyin_num": "ma1o",
+    "russian": ["кот", "кошка"],
+    "russian_var": [""],
+    "hsk": "1"
+  },
+  {
+    "id": "160",
+    "hieroglyph": "狗",
+    "pinyin": "gǒu",
+    "pinyin_num": "go3u",
+    "russian": ["собака"],
+    "russian_var": [""],
+    "hsk": "1"
+  },
+  {
+    "id": "161",
+    "hieroglyph": "同学",
+    "pinyin": "tóngxué",
+    "pinyin_num": "to2ngxue2",
+    "russian": ["одноклассник"],
+    "russian_var": [""],
+    "hsk": "1"
+  },
+  {
+    "id": "162",
+    "hieroglyph": "飞机",
+    "pinyin": "fēijī",
+    "pinyin_num": "fe1iji1",
+    "russian": ["самолёт"],
+    "russian_var": ["самолет"],
+    "hsk": "1"
+  },
+  {
+    "id": "163",
+    "hieroglyph": "东西",
+    "pinyin": "dōngxi",
+    "pinyin_num": "do1ngxi",
+    "russian": ["вещь", "предмет"],
+    "russian_var": [""],
+    "hsk": "1"
+  },
+  {
+    "id": "164",
+    "hieroglyph": "电影",
+    "pinyin": "diànyǐng",
+    "pinyin_num": "dia4nyi3ng",
+    "russian": ["фильм", "кино"],
+    "russian_var": [""],
+    "hsk": "1"
+  },
+  {
+    "id": "165",
+    "hieroglyph": "菜",
+    "pinyin": "cài",
+    "pinyin_num": "ca4i",
+    "russian": ["овощи", "блюдо"],
+    "russian_var": [""],
+    "hsk": "1"
+  },
+  {
+    "id": "166",
+    "hieroglyph": "电脑",
+    "pinyin": "diànnǎo",
+    "pinyin_num": "dia4nna3o",
+    "russian": ["компьютер"],
+    "russian_var": [""],
+    "hsk": "1"
+  },
+  {
+    "id": "167",
+    "hieroglyph": "电视",
+    "pinyin": "diànshì",
+    "pinyin_num": "dia4nshi4",
+    "russian": ["телевизор", "телевидение"],
+    "russian_var": [""],
+    "hsk": "1"
+  },
+  {
+    "id": "168",
+    "hieroglyph": "中午",
+    "pinyin": "zhōngwǔ",
+    "pinyin_num": "zho1ngwu3",
+    "russian": ["полдень"],
+    "russian_var": [""],
+    "hsk": "1"
+  },
+  {
+    "id": "169",
+    "hieroglyph": "上",
+    "pinyin": "shàngyī",
+    "pinyin_num": "sha4ngyi1",
+    "russian": ["на", "верх", "прошлый"],
+    "russian_var": [""],
+    "hsk": "1"
+  },
+  {
+    "id": "170",
+    "hieroglyph": "说话",
+    "pinyin": "shuōhuà",
+    "pinyin_num": "shuo1huà",
+    "russian": ["говорить"],
+    "russian_var": ["разговаривать"],
+    "hsk": "1"
+  },
+  {
+    "id": "171",
+    "hieroglyph": "丈夫",
+    "pinyin": "zhàngfu",
+    "pinyin_num": "zha4ngfu",
+    "russian": ["муж"],
+    "russian_var": [""],
+    "hsk": "2"
+  },
+  {
+    "id": "172",
+    "hieroglyph": "一起",
+    "pinyin": "yīqǐ",
+    "pinyin_num": "yi1qi3",
+    "russian": ["вместе"],
+    "russian_var": [""],
+    "hsk": "2"
+  },
+  {
+    "id": "173",
+    "hieroglyph": "新",
+    "pinyin": "xīn",
+    "pinyin_num": "xi1n",
+    "russian": ["новый"],
+    "russian_var": [""],
+    "hsk": "2"
+  },
+  {
+    "id": "174",
+    "hieroglyph": "笑",
+    "pinyin": "xiào",
+    "pinyin_num": "xia4o",
+    "russian": ["смеяться"],
+    "russian_var": [""],
+    "hsk": "2"
+  },
+  {
+    "id": "175",
+    "hieroglyph": "问题",
+    "pinyin": "wèntí",
+    "pinyin_num": "we4nti2",
+    "russian": ["проблема", "вопрос"],
+    "russian_var": [""],
+    "hsk": "2"
+  },
+  {
+    "id": "176",
+    "hieroglyph": "完",
+    "pinyin": "wán",
+    "pinyin_num": "wa2n",
+    "russian": ["завершить", "закончить"],
+    "russian_var": [""],
+    "hsk": "2"
+  },
+  {
+    "id": "177",
+    "hieroglyph": "玩",
+    "pinyin": "Wán",
+    "pinyin_num": "Wa2n",
+    "russian": ["гулять", "играть"],
+    "russian_var": [""],
+    "hsk": "2"
+  },
+  {
+    "id": "178",
+    "hieroglyph": "它",
+    "pinyin": "tā",
+    "pinyin_num": "ta1",
+    "russian": ["он", "она", "оно"],
+    "russian_var": [""],
+    "hsk": "2"
+  },
+  {
+    "id": "179",
+    "hieroglyph": "开始",
+    "pinyin": "kāishǐ",
+    "pinyin_num": "ka1ishi3",
+    "russian": ["начинать"],
+    "russian_var": [""],
+    "hsk": "2"
+  },
+  {
+    "id": "180",
+    "hieroglyph": "打篮球",
+    "pinyin": "Dǎ lánqiú",
+    "pinyin_num": "Da3 la2nqiu2",
+    "russian": ["играть в баскетбол"],
+    "russian_var": [""],
+    "hsk": "2"
+  },
+  {
+    "id": "181",
+    "hieroglyph": "别",
+    "pinyin": "bié",
+    "pinyin_num": "bie2",
+    "russian": ["не", "другой", "прочий"],
+    "russian_var": [""],
+    "hsk": "2"
+  },
+  {
+    "id": "182",
+    "hieroglyph": "身体",
+    "pinyin": "shēntǐ",
+    "pinyin_num": "she1nti3",
+    "russian": ["тело", "здоровье"],
+    "russian_var": [""],
+    "hsk": "0"
+  },
+  {
+    "id": "183",
+    "hieroglyph": "念",
+    "pinyin": "niàn",
+    "pinyin_num": "nia4n",
+    "russian": ["читать вслух"],
+    "russian_var": [""],
+    "hsk": "0"
+  },
+  {
+    "id": "184",
+    "hieroglyph": "生词",
+    "pinyin": "shēngcí",
+    "pinyin_num": "she1ngci2",
+    "russian": ["новые слова"],
+    "russian_var": [""],
+    "hsk": "0"
+  },
+  {
+    "id": "185",
+    "hieroglyph": "词典",
+    "pinyin": "cídiǎn",
+    "pinyin_num": "ci2dia3n",
+    "russian": ["словарь"],
+    "russian_var": [""],
+    "hsk": "0"
+  },
+  {
+    "id": "186",
+    "hieroglyph": "抱歉",
+    "pinyin": "bàoqiàn",
+    "pinyin_num": "",
+    "russian": ["сожалеть", "к сожалению"],
+    "russian_var": [""],
+    "hsk": "0"
+  },
+  {
+    "id": "187",
+    "hieroglyph": "恐怕",
+    "pinyin": "kǒngpà",
+    "pinyin_num": "ko3ngpa4",
+    "russian": ["боюсь, что", "опасаюсь, что"],
+    "russian_var": [""],
+    "hsk": "0"
+  },
+  {
+    "id": "188",
+    "hieroglyph": "铅笔",
+    "pinyin": "qiānbǐ",
+    "pinyin_num": "qia1nbi3",
+    "russian": ["карандаш"],
+    "russian_var": [""],
+    "hsk": "0"
+  },
+  {
+    "id": "189",
+    "hieroglyph": "工程师",
+    "pinyin": "gōngchéngshī",
+    "pinyin_num": "go1ngche2ngshi1",
+    "russian": ["инженер"],
+    "russian_var": [""],
+    "hsk": "0"
+  },
+  {
+    "id": "190",
+    "hieroglyph": "护士",
+    "pinyin": "hùshi",
+    "pinyin_num": "hu4shi",
+    "russian": ["медсестра"],
+    "russian_var": [""],
+    "hsk": "0"
+  },
+  {
+    "id": "191",
+    "hieroglyph": "农民",
+    "pinyin": "nóngmín",
+    "pinyin_num": "no2ngmi2n",
+    "russian": ["крестьянин"],
+    "russian_var": [""],
+    "hsk": "0"
+  },
+  {
+    "id": "192",
+    "hieroglyph": "杂志",
+    "pinyin": "zázhì",
+    "pinyin_num": "za2zhi4",
+    "russian": ["журнал"],
+    "russian_var": [""],
+    "hsk": "0"
+  },
+  {
+    "id": "193",
+    "hieroglyph": "画报",
+    "pinyin": "huàbào",
+    "pinyin_num": "hua4ba4o",
+    "russian": ["журнал"],
+    "russian_var": [""],
+    "hsk": "0"
+  },
+  {
+    "id": "194",
+    "hieroglyph": "世界",
+    "pinyin": "shìjiè",
+    "pinyin_num": "shi4jie4",
+    "russian": ["мир", "вселенная"],
+    "russian_var": [""],
+    "hsk": "0"
+  },
+  {
+    "id": "195",
+    "hieroglyph": "支",
+    "pinyin": "zhī",
+    "pinyin_num": "zhi1",
+    "russian": ["сч.слово для ручек, карандашей и пр.", "отделение"],
+    "russian_var": [""],
+    "hsk": "0"
+  },
+  {
+    "id": "196",
+    "hieroglyph": "台灯",
+    "pinyin": "táidēng",
+    "pinyin_num": "ta2ide1ng",
+    "russian": ["настольная лампа"],
+    "russian_var": [""],
+    "hsk": "0"
+  },
+  {
+    "id": "197",
+    "hieroglyph": "毛笔",
+    "pinyin": "máobǐ",
+    "pinyin_num": "ma2obi3",
+    "russian": ["писчая кисть"],
+    "russian_var": [""],
+    "hsk": "0"
+  },
+  {
+    "id": "198",
+    "hieroglyph": "干净",
+    "pinyin": "gānjing",
+    "pinyin_num": "ga1njing",
+    "russian": ["чистый"],
+    "russian_var": [""],
+    "hsk": "0"
+  },
+  {
+    "id": "199",
+    "hieroglyph": "难",
+    "pinyin": "nán",
+    "pinyin_num": "na2n",
+    "russian": ["трудный", "тяжёлый"],
+    "russian_var": [""],
+    "hsk": "0"
+  },
+  {
+    "id": "200",
+    "hieroglyph": "容易",
+    "pinyin": "róngyi",
+    "pinyin_num": "ro2ngyi",
+    "russian": ["легкий"],
+    "russian_var": [""],
+    "hsk": "0"
+  },
+  {
+    "id": "201",
+    "hieroglyph": "脏",
+    "pinyin": "zāng",
+    "pinyin_num": "za1ng",
+    "russian": ["грязный"],
+    "russian_var": [""],
+    "hsk": "0"
+  },
+  {
+    "id": "202",
+    "hieroglyph": "复习",
+    "pinyin": "fùxí",
+    "pinyin_num": "fu4xi2",
+    "russian": ["повторять", "упражняться"],
+    "russian_var": [""],
+    "hsk": "0"
+  },
+  {
+    "id": "203",
+    "hieroglyph": "预习",
+    "pinyin": "yùxí",
+    "pinyin_num": "yu4xi2",
+    "russian": ["предварительная тренировка"],
+    "russian_var": [""],
+    "hsk": "0"
+  },
+  {
+    "id": "204",
+    "hieroglyph": "录音",
+    "pinyin": "lùyīn",
+    "pinyin_num": "lu4yi1n",
+    "russian": ["звукозапись"],
+    "russian_var": [""],
+    "hsk": "0"
+  },
+  {
+    "id": "205",
+    "hieroglyph": "练习",
+    "pinyin": "liànxí",
+    "pinyin_num": "lia4nxi2",
+    "russian": ["упражнение", "тренироваться"],
+    "russian_var": [""],
+    "hsk": "0"
   }
 ]}
