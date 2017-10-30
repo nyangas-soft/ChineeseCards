@@ -1,31 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/palette_bg"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:weightSum="1"
-    android:windowSoftInputMode="adjustPan" >
+    android:windowSoftInputMode="adjustPan">
 
     <android.support.v4.view.ViewPager xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
         android:id="@+id/pager"
         android:layout_width="match_parent"
-        android:layout_height="449dp"
-        tools:context="com.internet_of_everything.chineesecards.MainActivity"
+        android:layout_height="wrap_content"
         android:layout_weight="0.15"
-        android:windowSoftInputMode="adjustPan" ></android.support.v4.view.ViewPager>
+        android:windowSoftInputMode="adjustPan"
+        tools:context="com.internet_of_everything.chineesecards.MainActivity">
+    </android.support.v4.view.ViewPager>
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_vertical"
+        android:layout_height="match_parent"
         android:layout_marginBottom="2dp"
         android:layout_marginLeft="2dp"
         android:layout_marginRight="2dp"
         android:layout_marginTop="2dp"
+        android:layout_weight="0.85"
         android:baselineAligned="false"
         android:orientation="horizontal"
         android:visibility="visible"
@@ -35,7 +35,6 @@
             android:id="@+id/button_back"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical|center_horizontal"
             android:layout_weight="0.5"
             android:background="?android:attr/windowBackground"
             android:contentDescription="@android:string/untitled"
