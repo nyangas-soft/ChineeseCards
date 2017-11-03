@@ -6,4 +6,9 @@
         android:id="@+id/settings"
         android:icon="@android:drawable/ic_menu_edit"
         app:showAsAction="always" />
+
+    <item
+        android:id="@+id/catalogs"
+        android:icon="@drawable/ic_folder_open_black_48dp"
+        app:showAsAction="always" />
 </menu>

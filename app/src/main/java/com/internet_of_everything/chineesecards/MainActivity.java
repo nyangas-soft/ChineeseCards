@@ -1,8 +1,6 @@
 package com.internet_of_everything.chineesecards;
 
-import android.content.Context;
 import android.content.DialogInterface;
-import android.media.Image;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -15,12 +13,8 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageButton;
-
 import org.json.JSONException;
-
-import static com.internet_of_everything.chineesecards.R.styleable.View;
 
 //главная активность
 public class MainActivity extends AppCompatActivity {

@@ -2,9 +2,7 @@ package com.internet_of_everything.chineesecards;
 
 import android.graphics.Color;
 import android.os.Bundle;
-import android.renderscript.ScriptGroup;
 import android.support.v4.app.Fragment;
-import android.text.InputType;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
@@ -14,6 +12,7 @@ import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -138,7 +137,7 @@ public class OneCardFragment extends Fragment {
                     }
                 }
 
-                return true;
+                return false;
             }
         });
 
