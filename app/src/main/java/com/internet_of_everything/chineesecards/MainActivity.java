@@ -1,19 +1,30 @@
 package com.internet_of_everything.chineesecards;
 
 import android.content.DialogInterface;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.ImageButton;
+import android.widget.ListView;
+import android.support.v7.widget.Toolbar;
+
 import org.json.JSONException;
 
 //главная активность
@@ -31,6 +42,12 @@ public class MainActivity extends AppCompatActivity {
     private PagerAdapter mPagerAdapter;
     public static MainActivity context=null;
 
+    private String[] hskLevels;
+    private DrawerLayout mDrawerLayout;
+    private ListView mDrawerList;
+    private CharSequence mTitle;
+    private EndDrawerToggle drawerToggle;
+
 
 
     @Override
@@ -38,6 +55,37 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         context=this;
+
+        mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
+        hskLevels = getResources().getStringArray(R.array.hsk_levels_array);
+
+        mDrawerList = (ListView) findViewById(R.id.right_drawer);
+
+        Toolbar myToolbar = (Toolbar) findViewById(R.id.my_toolbar);
+        // Drawable drawable = ContextCompat.getDrawable(context, R.drawable.ic_folder_black_48dp);
+        // myToolbar.setNavigationIcon(drawable);
+        setSupportActionBar(myToolbar);
+
+        // Set the adapter for the list view
+        mDrawerList.setAdapter(new ArrayAdapter<String>(this,
+                R.layout.drawer_list_item, hskLevels));
+        // Set the list's click listener
+        mDrawerList.setOnItemClickListener(new DrawerItemClickListener());
+
+        // enable ActionBar app icon to behave as action to toggle nav drawer
+        //getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        // getSupportActionBar().setHomeButtonEnabled(true);
+
+
+        // ActionBarDrawerToggle ties together the the proper interactions
+        // between the sliding drawer and the action bar app icon
+
+        drawerToggle = new EndDrawerToggle(this,
+                mDrawerLayout,
+                myToolbar,
+                R.string.drawer_open,
+                R.string.drawer_close);
+        mDrawerLayout.addDrawerListener(drawerToggle);
 
         // Instantiate a ViewPager and a PagerAdapter.
         mPager = (ViewPager) findViewById(R.id.pager);
@@ -85,18 +133,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 mPager.setCurrentItem(mPager.getCurrentItem()-1, true);
-                /*ImageButton backButton = (ImageButton)findViewById(R.id.button_back);
-                if (mPager.getCurrentItem()==0) {
-                    backButton.setVisibility(android.view.View.INVISIBLE);
-                } else {
-                    backButton.setVisibility(android.view.View.VISIBLE);
-                }
-                ImageButton nextButton = (ImageButton)findViewById(R.id.button_next);
-                if (mPager.getCurrentItem()==mPager.getAdapter().getCount()-1) {
-                    nextButton.setVisibility(android.view.View.INVISIBLE);
-                } else {
-                    nextButton.setVisibility(android.view.View.VISIBLE);
-                }*/
+
             }
         });
 
@@ -107,40 +144,16 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 mPager.setCurrentItem(mPager.getCurrentItem()+1, true);
-                /*ImageButton backButton = (ImageButton)findViewById(R.id.button_back);
-                if (mPager.getCurrentItem()==0) {
-                    backButton.setVisibility(android.view.View.INVISIBLE);
-                } else {
-                    backButton.setVisibility(android.view.View.VISIBLE);
-                }
-                ImageButton nextButton = (ImageButton)findViewById(R.id.button_next);
-                if (mPager.getCurrentItem()==mPager.getAdapter().getCount()-1) {
-                    nextButton.setVisibility(android.view.View.INVISIBLE);
-                } else {
-                    nextButton.setVisibility(android.view.View.VISIBLE);
-                }*/
+
             }
         });
     }
-   /* @Override
-    protected void onResume(){
-        super.onResume();
-        ImageButton backButton = (ImageButton)findViewById(R.id.button_back);
-        if (mPager.getCurrentItem()==0) {
-            backButton.setVisibility(android.view.View.INVISIBLE);
-        } else {
-            backButton.setVisibility(android.view.View.VISIBLE);
-        }
-    }*/
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.main, menu);
         return true;
     }
-
-
-
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
@@ -233,6 +246,37 @@ public class MainActivity extends AppCompatActivity {
         }
 
 
+    }
+
+    /* The click listner for ListView in the navigation drawer */
+    private class DrawerItemClickListener implements ListView.OnItemClickListener {
+        @Override
+        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+           // selectItem(position);
+            return;
+        }
+    }
+
+    private void selectItem(int position) {
+        // update the main content by replacing fragments
+        /*Fragment fragment = new PlanetFragment();
+        Bundle args = new Bundle();
+        args.putInt(PlanetFragment.ARG_PLANET_NUMBER, position);
+        fragment.setArguments(args);
+
+        FragmentManager fragmentManager = getFragmentManager();
+        fragmentManager.beginTransaction().replace(R.id.content_frame, fragment).commit();
+
+        // update selected item and title, then close the drawer
+        mDrawerList.setItemChecked(position, true);
+        setTitle(mPlanetTitles[position]);
+        mDrawerLayout.closeDrawer(mDrawerList);*/
+    }
+
+    @Override
+    public void setTitle(CharSequence title) {
+        mTitle = title;
+        getActionBar().setTitle(mTitle);
     }
 
 }

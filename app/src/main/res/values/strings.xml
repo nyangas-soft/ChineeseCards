@@ -11,4 +11,11 @@
     <string name="edit_rus">перевод</string>
     <string name="relax">Просто созерцайте</string>
     <string name="right_answer">Правильный ответ: </string>
+    <string name="drawer_open">Open navigation drawer</string>
+    <string name="drawer_close">Close navigation drawer</string>
+    <string-array name="hsk_levels_array">
+        <item>hsk1</item>
+        <item>hsk2</item>
+        <item>Прочее</item>
+    </string-array>
 </resources>
