@@ -3,10 +3,12 @@ package com.internet_of_everything.chineesecards;
 import android.content.DialogInterface;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.view.GravityCompat;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
@@ -14,21 +16,17 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
-import android.view.Gravity;
 import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.ImageButton;
-import android.widget.ListView;
 import android.support.v7.widget.Toolbar;
+import android.widget.Toast;
 
 import org.json.JSONException;
 
 //главная активность
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
      /**
      * The pager widget, which handles animation and allows swiping horizontally to access previous
@@ -42,11 +40,9 @@ public class MainActivity extends AppCompatActivity {
     private PagerAdapter mPagerAdapter;
     public static MainActivity context=null;
 
-    private String[] hskLevels;
     private DrawerLayout mDrawerLayout;
-    private ListView mDrawerList;
-    private CharSequence mTitle;
-    private EndDrawerToggle drawerToggle;
+    private ActionBarDrawerToggle drawerToggle;
+    private NavigationView navigationView;
 
 
 
@@ -56,35 +52,33 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         context=this;
 
+       /* if(getWindow().getDecorView().getLayoutDirection()==View.LAYOUT_DIRECTION_LTR){
+            getWindow().getDecorView().setLayoutDirection(View.LAYOUT_DIRECTION_RTL);
+        }*/
+
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
-        hskLevels = getResources().getStringArray(R.array.hsk_levels_array);
-
-        mDrawerList = (ListView) findViewById(R.id.right_drawer);
-
+        navigationView=(NavigationView)findViewById(R.id.left_drawer);
+        navigationView.setNavigationItemSelectedListener(this);
         Toolbar myToolbar = (Toolbar) findViewById(R.id.my_toolbar);
-        // Drawable drawable = ContextCompat.getDrawable(context, R.drawable.ic_folder_black_48dp);
-        // myToolbar.setNavigationIcon(drawable);
+        Drawable drawable = ContextCompat.getDrawable(context, R.drawable.ic_folder_open_white_36dp);
+        myToolbar.setNavigationIcon(drawable);
         setSupportActionBar(myToolbar);
 
-        // Set the adapter for the list view
-        mDrawerList.setAdapter(new ArrayAdapter<String>(this,
-                R.layout.drawer_list_item, hskLevels));
-        // Set the list's click listener
-        mDrawerList.setOnItemClickListener(new DrawerItemClickListener());
-
         // enable ActionBar app icon to behave as action to toggle nav drawer
-        //getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        // getSupportActionBar().setHomeButtonEnabled(true);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+         getSupportActionBar().setHomeButtonEnabled(true);
 
 
         // ActionBarDrawerToggle ties together the the proper interactions
         // between the sliding drawer and the action bar app icon
 
-        drawerToggle = new EndDrawerToggle(this,
+        drawerToggle = new ActionBarDrawerToggle(this,
                 mDrawerLayout,
                 myToolbar,
                 R.string.drawer_open,
                 R.string.drawer_close);
+
+        // Set the drawer toggle as the DrawerListener
         mDrawerLayout.addDrawerListener(drawerToggle);
 
         // Instantiate a ViewPager and a PagerAdapter.
@@ -198,6 +192,11 @@ public class MainActivity extends AppCompatActivity {
     //обработка пролистывания назад
     @Override
     public void onBackPressed() {
+        if (mDrawerLayout.isDrawerOpen(GravityCompat.START)) {
+            mDrawerLayout.closeDrawer(GravityCompat.START);
+        } else {
+            super.onBackPressed();
+        }
         if (mPager.getCurrentItem() == 0) {
             // If the user is currently looking at the first step, allow the system to handle the
             // Back button. This calls finish() on this activity and pops the back stack.
@@ -248,35 +247,24 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    /* The click listner for ListView in the navigation drawer */
-    private class DrawerItemClickListener implements ListView.OnItemClickListener {
-        @Override
-        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-           // selectItem(position);
-            return;
-        }
-    }
-
-    private void selectItem(int position) {
-        // update the main content by replacing fragments
-        /*Fragment fragment = new PlanetFragment();
-        Bundle args = new Bundle();
-        args.putInt(PlanetFragment.ARG_PLANET_NUMBER, position);
-        fragment.setArguments(args);
-
-        FragmentManager fragmentManager = getFragmentManager();
-        fragmentManager.beginTransaction().replace(R.id.content_frame, fragment).commit();
-
-        // update selected item and title, then close the drawer
-        mDrawerList.setItemChecked(position, true);
-        setTitle(mPlanetTitles[position]);
-        mDrawerLayout.closeDrawer(mDrawerList);*/
-    }
-
+    @SuppressWarnings("StatementWithEmptyBody")
     @Override
-    public void setTitle(CharSequence title) {
-        mTitle = title;
-        getActionBar().setTitle(mTitle);
+    public boolean onNavigationItemSelected(MenuItem item) {
+        // Handle navigation view item clicks here.
+        int id = item.getItemId();
+
+        if (id == R.id.hsk1) {
+            Toast.makeText(getApplicationContext(), "hsk 1", Toast.LENGTH_SHORT).show();
+        } else if (id == R.id.hsk2) {
+
+        } else if (id == R.id.no_hsk) {
+
+        } else if (id == R.id.to_repeat) {
+
+        }
+        mDrawerLayout.closeDrawer(GravityCompat.START);
+        return true;
     }
+
 
 }
