@@ -25,6 +25,8 @@ import android.widget.Toast;
 
 import org.json.JSONException;
 
+import java.util.ArrayList;
+
 //главная активность
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
@@ -37,7 +39,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     /**
      * The pager adapter, which provides the pages to the view pager widget.
      */
-    private PagerAdapter mPagerAdapter;
+    private PagerAdapter mAllPagerAdapter;
+    private PagerAdapter mHsk1PagerAdapter;
     public static MainActivity context=null;
 
     private DrawerLayout mDrawerLayout;
@@ -83,8 +86,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         // Instantiate a ViewPager and a PagerAdapter.
         mPager = (ViewPager) findViewById(R.id.pager);
-        mPagerAdapter = new OneCardAdapter(getSupportFragmentManager());
-        mPager.setAdapter(mPagerAdapter);
+        mAllPagerAdapter = new AllCardsAdapter(getSupportFragmentManager());
+        mHsk1PagerAdapter=new Hsk1CardsAdapter(getSupportFragmentManager());
+        mPager.setAdapter(mAllPagerAdapter);
         ImageButton backButton = (ImageButton)findViewById(R.id.button_back);
         if (mPager.getCurrentItem()==0) {
             backButton.setVisibility(android.view.View.INVISIBLE);
@@ -172,7 +176,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                                 public void onClick(DialogInterface dialog, int id) {
                                     //
                                     WhatToShow.setWhatToShow(mCheckedItems[0],mCheckedItems[1],mCheckedItems[2]);
-                                    mPagerAdapter.notifyDataSetChanged();
+                                    // todo
+                                    mAllPagerAdapter.notifyDataSetChanged();
                                     Log.d("mainActLog",String.valueOf(mCheckedItems[0])+String.valueOf(mCheckedItems[1])+String.valueOf(mCheckedItems[2]));
                                     Log.d("mainActLog",String.valueOf(WhatToShow.getWhatToShow()[0])+
                                             String.valueOf(WhatToShow.getWhatToShow()[1])+String.valueOf(WhatToShow.getWhatToShow()[2]));
@@ -210,8 +215,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     }
 
     //страница карточки
-    private class OneCardAdapter extends FragmentStatePagerAdapter {
-        public OneCardAdapter(FragmentManager fm) {
+    private class AllCardsAdapter extends FragmentStatePagerAdapter {
+        public AllCardsAdapter(FragmentManager fm) {
             super(fm);
         }
 
@@ -247,6 +252,44 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     }
 
+    //страница карточки
+    private class Hsk1CardsAdapter extends FragmentStatePagerAdapter {
+        public Hsk1CardsAdapter(FragmentManager fm) {
+            super(fm);
+        }
+
+        @Override
+        public Fragment getItem(int position) {
+            OneCardFragment f = new OneCardFragment();
+            Bundle bdl = new Bundle(5);
+
+            //передаем все необходимые поля:
+            //иероглиф, пиньинь и перевод
+            try{
+                bdl.putString("HIERO_ARG", HSK1JSONArray.getMyHSK1JSONobj(position).getString("hieroglyph"));
+                bdl.putString("PINYIN_ARG", HSK1JSONArray.getMyHSK1JSONobj(position).getString("pinyin"));
+                bdl.putString("PINYIN_DIG", HSK1JSONArray.getMyHSK1JSONobj(position).getString("pinyin_num"));
+                bdl.putString("RUS_ARG", HSK1JSONArray.getMyHSK1JSONobj(position).getString("russian"));
+                bdl.putString("RUS_VAR", HSK1JSONArray.getMyHSK1JSONobj(position).getString("russian_var"));
+            }
+            catch (JSONException e){}
+            f.setArguments(bdl);
+            return f;
+        }
+
+        @Override
+        public int getCount() {
+            return MainJSONArray.getNumPages();
+        }
+
+        @Override
+        public int getItemPosition(Object object){
+            return POSITION_NONE;
+        }
+
+
+    }
+
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
@@ -254,13 +297,23 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         int id = item.getItemId();
 
         if (id == R.id.hsk1) {
-            Toast.makeText(getApplicationContext(), "hsk 1", Toast.LENGTH_SHORT).show();
+            ArrayList<Fragment> fragments=new ArrayList<Fragment>();
+            for(int i=0; i<fragments.size(); i++)
+                getSupportFragmentManager().beginTransaction().remove(fragments.get(i)).commit();
+            fragments.clear();
+            mPager.setAdapter(mHsk1PagerAdapter);
         } else if (id == R.id.hsk2) {
 
         } else if (id == R.id.no_hsk) {
 
         } else if (id == R.id.to_repeat) {
 
+        } else if (id == R.id.all) {
+            ArrayList<Fragment> fragments=new ArrayList<Fragment>();
+            for(int i=0; i<fragments.size(); i++)
+                getSupportFragmentManager().beginTransaction().remove(fragments.get(i)).commit();
+            fragments.clear();
+            mPager.setAdapter(mAllPagerAdapter);
         }
         mDrawerLayout.closeDrawer(GravityCompat.START);
         return true;

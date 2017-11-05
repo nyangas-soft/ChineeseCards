@@ -27,14 +27,18 @@ class HSK1JSONArray {
 
     //конструктор
     private HSK1JSONArray() {
+        myHSK1JSONarr=new JSONArray();
         Log.d("HSK1Log","constructor started");
         try {
+            Log.d("HSK1Log","try");
             for (int i = 0; i < MainJSONArray.getNumPages(); i++) {
-                if (MainJSONArray.getMyJSONobj(i).getString("hsk") == "1") {
+                Log.d("HSK1Log",""+i);
+                if (MainJSONArray.getMyJSONobj(i).getString("hsk").equals("1")) {
                     myHSK1JSONarr.put(MainJSONArray.getMyJSONobj(i));
                 }
             }
-            Log.d("HSK1Log",myHSK1JSONarr.toString());
+            Log.d("HSK1Log", "hsk1 arr: "+myHSK1JSONarr.toString());
+            Log.d("HSK1Log", "hsk1 arr length: "+myHSK1JSONarr.length());
         } catch (JSONException e) {
             Log.d("HSK1Log","json arr fail");
         }
