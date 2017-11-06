@@ -24,10 +24,11 @@ class HSK2JSONArray {
 
     //конструктор
     private HSK2JSONArray() {
+        myHSK2JSONarr=new JSONArray();
         Log.d("HSK2Log","constructor started");
         try {
             for (int i = 0; i < MainJSONArray.getNumPages(); i++) {
-                if (MainJSONArray.getMyJSONobj(i).getString("hsk") == "2") {
+                if (MainJSONArray.getMyJSONobj(i).getString("hsk").equals("2")) {
                     myHSK2JSONarr.put(MainJSONArray.getMyJSONobj(i));
                 }
             }

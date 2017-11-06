@@ -93,4 +93,19 @@ class MainJSONArray {
     public static int getNumPages(){
         return myJSONarr.length();
     }
+
+    //найти элемент по id
+    public static int getObjectById(int idOfCard){
+        int idOfObject=0;
+        for (int i=0;i<myRandomizedJSONarr.length();i++){
+            try {
+                if (Integer.parseInt(myRandomizedJSONarr.getJSONObject(i).getString("id")) == idOfCard) {
+                    idOfObject = i;
+                    break;
+                }
+            } catch (JSONException e){}
+        }
+        return idOfObject;
+    }
+
 }

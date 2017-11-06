@@ -3,6 +3,8 @@ package com.internet_of_everything.chineesecards;
 import android.content.DialogInterface;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -20,11 +22,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageButton;
-import android.support.v7.widget.Toolbar;
-import android.widget.Toast;
-
-import org.json.JSONException;
-
+import android.support.v7.widget.Toolbar;import org.json.JSONException;
 import java.util.ArrayList;
 
 //главная активность
@@ -41,11 +39,15 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
      */
     private PagerAdapter mAllPagerAdapter;
     private PagerAdapter mHsk1PagerAdapter;
+    private PagerAdapter mHsk2PagerAdapter;
+    private PagerAdapter mNoHskPagerAdapter;
+    private PagerAdapter mToRepeatPagerAdapter;
     public static MainActivity context=null;
 
     private DrawerLayout mDrawerLayout;
     private ActionBarDrawerToggle drawerToggle;
     private NavigationView navigationView;
+    private Toolbar myToolbar;
 
 
 
@@ -55,16 +57,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         setContentView(R.layout.activity_main);
         context=this;
 
-       /* if(getWindow().getDecorView().getLayoutDirection()==View.LAYOUT_DIRECTION_LTR){
-            getWindow().getDecorView().setLayoutDirection(View.LAYOUT_DIRECTION_RTL);
-        }*/
-
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         navigationView=(NavigationView)findViewById(R.id.left_drawer);
         navigationView.setNavigationItemSelectedListener(this);
-        Toolbar myToolbar = (Toolbar) findViewById(R.id.my_toolbar);
+        myToolbar = (Toolbar) findViewById(R.id.my_toolbar);
         Drawable drawable = ContextCompat.getDrawable(context, R.drawable.ic_folder_open_white_36dp);
         myToolbar.setNavigationIcon(drawable);
+        myToolbar.setTitle(R.string.title_all);
         setSupportActionBar(myToolbar);
 
         // enable ActionBar app icon to behave as action to toggle nav drawer
@@ -88,6 +87,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         mPager = (ViewPager) findViewById(R.id.pager);
         mAllPagerAdapter = new AllCardsAdapter(getSupportFragmentManager());
         mHsk1PagerAdapter=new Hsk1CardsAdapter(getSupportFragmentManager());
+        mHsk2PagerAdapter=new Hsk2CardsAdapter(getSupportFragmentManager());
+        mNoHskPagerAdapter=new NoHskCardsAdapter(getSupportFragmentManager());
+        mToRepeatPagerAdapter=new ToRepeatCardsAdapter(getSupportFragmentManager());
         mPager.setAdapter(mAllPagerAdapter);
         ImageButton backButton = (ImageButton)findViewById(R.id.button_back);
         if (mPager.getCurrentItem()==0) {
@@ -95,6 +97,24 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         } else {
             backButton.setVisibility(android.view.View.VISIBLE);
         }
+        mPager.addOnAdapterChangeListener(new ViewPager.OnAdapterChangeListener() {
+            @Override
+            public void onAdapterChanged(@NonNull ViewPager viewPager, @Nullable PagerAdapter oldAdapter, @Nullable PagerAdapter newAdapter) {
+                ImageButton backButton = (ImageButton)findViewById(R.id.button_back);
+                ImageButton nextButton = (ImageButton)findViewById(R.id.button_next);
+                PagerAdapter pagerAdapter=mPager.getAdapter();
+                if (mPager.getCurrentItem()==0) {
+                    backButton.setVisibility(android.view.View.INVISIBLE);
+                } else {
+                    backButton.setVisibility(android.view.View.VISIBLE);
+                }
+                if (mPager.getCurrentItem()==mPager.getAdapter().getCount()-1) {
+                    nextButton.setVisibility(android.view.View.INVISIBLE);
+                } else {
+                    nextButton.setVisibility(android.view.View.VISIBLE);
+                }
+            }
+        });
         mPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
@@ -110,6 +130,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             public void onPageScrollStateChanged(int state) {
                 ImageButton backButton = (ImageButton)findViewById(R.id.button_back);
                 ImageButton nextButton = (ImageButton)findViewById(R.id.button_next);
+                PagerAdapter pagerAdapter=mPager.getAdapter();
                 if (mPager.getCurrentItem()==0) {
                     backButton.setVisibility(android.view.View.INVISIBLE);
                 } else {
@@ -176,8 +197,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                                 public void onClick(DialogInterface dialog, int id) {
                                     //
                                     WhatToShow.setWhatToShow(mCheckedItems[0],mCheckedItems[1],mCheckedItems[2]);
-                                    // todo
                                     mAllPagerAdapter.notifyDataSetChanged();
+                                    mHsk1PagerAdapter.notifyDataSetChanged();
+                                    mHsk2PagerAdapter.notifyDataSetChanged();
+                                    mNoHskPagerAdapter.notifyDataSetChanged();
+                                    mToRepeatPagerAdapter.notifyDataSetChanged();
                                     Log.d("mainActLog",String.valueOf(mCheckedItems[0])+String.valueOf(mCheckedItems[1])+String.valueOf(mCheckedItems[2]));
                                     Log.d("mainActLog",String.valueOf(WhatToShow.getWhatToShow()[0])+
                                             String.valueOf(WhatToShow.getWhatToShow()[1])+String.valueOf(WhatToShow.getWhatToShow()[2]));
@@ -233,6 +257,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 bdl.putString("PINYIN_DIG", MainJSONArray.getMyJSONobj(position).getString("pinyin_num"));
                 bdl.putString("RUS_ARG", MainJSONArray.getMyJSONobj(position).getString("russian"));
                 bdl.putString("RUS_VAR", MainJSONArray.getMyJSONobj(position).getString("russian_var"));
+                bdl.putString("ID", MainJSONArray.getMyJSONobj(position).getString("id"));
             }
             catch (JSONException e){}
             f.setArguments(bdl);
@@ -252,7 +277,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     }
 
-    //страница карточки
     private class Hsk1CardsAdapter extends FragmentStatePagerAdapter {
         public Hsk1CardsAdapter(FragmentManager fm) {
             super(fm);
@@ -271,6 +295,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 bdl.putString("PINYIN_DIG", HSK1JSONArray.getMyHSK1JSONobj(position).getString("pinyin_num"));
                 bdl.putString("RUS_ARG", HSK1JSONArray.getMyHSK1JSONobj(position).getString("russian"));
                 bdl.putString("RUS_VAR", HSK1JSONArray.getMyHSK1JSONobj(position).getString("russian_var"));
+                bdl.putString("ID", HSK1JSONArray.getMyHSK1JSONobj(position).getString("id"));
             }
             catch (JSONException e){}
             f.setArguments(bdl);
@@ -279,7 +304,127 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         @Override
         public int getCount() {
-            return MainJSONArray.getNumPages();
+            return HSK1JSONArray.getNumPages();
+        }
+
+        @Override
+        public int getItemPosition(Object object){
+            return POSITION_NONE;
+        }
+
+
+    }
+
+    private class Hsk2CardsAdapter extends FragmentStatePagerAdapter {
+        public Hsk2CardsAdapter(FragmentManager fm) {
+            super(fm);
+        }
+
+        @Override
+        public Fragment getItem(int position) {
+            OneCardFragment f = new OneCardFragment();
+            Bundle bdl = new Bundle(5);
+
+            //передаем все необходимые поля:
+            //иероглиф, пиньинь и перевод
+            try{
+                bdl.putString("HIERO_ARG", HSK2JSONArray.getMyHSK2JSONobj(position).getString("hieroglyph"));
+                bdl.putString("PINYIN_ARG", HSK2JSONArray.getMyHSK2JSONobj(position).getString("pinyin"));
+                bdl.putString("PINYIN_DIG", HSK2JSONArray.getMyHSK2JSONobj(position).getString("pinyin_num"));
+                bdl.putString("RUS_ARG", HSK2JSONArray.getMyHSK2JSONobj(position).getString("russian"));
+                bdl.putString("RUS_VAR", HSK2JSONArray.getMyHSK2JSONobj(position).getString("russian_var"));
+                bdl.putString("ID", HSK2JSONArray.getMyHSK2JSONobj(position).getString("id"));
+            }
+            catch (JSONException e){}
+            f.setArguments(bdl);
+            return f;
+        }
+
+        @Override
+        public int getCount() {
+            return HSK2JSONArray.getNumPages();
+        }
+
+        @Override
+        public int getItemPosition(Object object){
+            return POSITION_NONE;
+        }
+
+
+    }
+
+    private class NoHskCardsAdapter extends FragmentStatePagerAdapter {
+        public NoHskCardsAdapter(FragmentManager fm) {
+            super(fm);
+        }
+
+        @Override
+        public Fragment getItem(int position) {
+            OneCardFragment f = new OneCardFragment();
+            Bundle bdl = new Bundle(5);
+
+            //передаем все необходимые поля:
+            //иероглиф, пиньинь и перевод
+            try {
+                bdl.putString("HIERO_ARG", NoHSKJSONArray.getMyNoHSKJSONobj(position).getString("hieroglyph"));
+                bdl.putString("PINYIN_ARG", NoHSKJSONArray.getMyNoHSKJSONobj(position).getString("pinyin"));
+                bdl.putString("PINYIN_DIG", NoHSKJSONArray.getMyNoHSKJSONobj(position).getString("pinyin_num"));
+                bdl.putString("RUS_ARG", NoHSKJSONArray.getMyNoHSKJSONobj(position).getString("russian"));
+                bdl.putString("RUS_VAR", NoHSKJSONArray.getMyNoHSKJSONobj(position).getString("russian_var"));
+                bdl.putString("ID", NoHSKJSONArray.getMyNoHSKJSONobj(position).getString("id"));
+            } catch (JSONException e) {
+            }
+            f.setArguments(bdl);
+            return f;
+
+    }
+
+
+
+        @Override
+        public int getCount() {
+            return NoHSKJSONArray.getNumPages();
+        }
+
+        @Override
+        public int getItemPosition(Object object){
+            return POSITION_NONE;
+        }
+
+
+    }
+
+    private class ToRepeatCardsAdapter extends FragmentStatePagerAdapter {
+        public ToRepeatCardsAdapter(FragmentManager fm) {
+            super(fm);
+        }
+
+        @Override
+        public Fragment getItem(int position) {
+            OneCardFragment f = new OneCardFragment();
+            Bundle bdl = new Bundle(5);
+
+            //передаем все необходимые поля:
+            //иероглиф, пиньинь и перевод
+            try {
+                bdl.putString("HIERO_ARG", ToRepeatJSONArray.getMyToRepeatJSONobj(position).getString("hieroglyph"));
+                bdl.putString("PINYIN_ARG", ToRepeatJSONArray.getMyToRepeatJSONobj(position).getString("pinyin"));
+                bdl.putString("PINYIN_DIG", ToRepeatJSONArray.getMyToRepeatJSONobj(position).getString("pinyin_num"));
+                bdl.putString("RUS_ARG", ToRepeatJSONArray.getMyToRepeatJSONobj(position).getString("russian"));
+                bdl.putString("RUS_VAR", ToRepeatJSONArray.getMyToRepeatJSONobj(position).getString("russian_var"));
+                bdl.putString("ID", ToRepeatJSONArray.getMyToRepeatJSONobj(position).getString("id"));
+            } catch (JSONException e) {
+            }
+            f.setArguments(bdl);
+            return f;
+
+        }
+
+
+
+        @Override
+        public int getCount() {
+            return ToRepeatJSONArray.getNumPages();
         }
 
         @Override
@@ -302,18 +447,35 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 getSupportFragmentManager().beginTransaction().remove(fragments.get(i)).commit();
             fragments.clear();
             mPager.setAdapter(mHsk1PagerAdapter);
+            myToolbar.setTitle(R.string.title_hsk1);
         } else if (id == R.id.hsk2) {
-
+            ArrayList<Fragment> fragments=new ArrayList<Fragment>();
+            for(int i=0; i<fragments.size(); i++)
+                getSupportFragmentManager().beginTransaction().remove(fragments.get(i)).commit();
+            fragments.clear();
+            mPager.setAdapter(mHsk2PagerAdapter);
+            myToolbar.setTitle(R.string.title_hsk2);
         } else if (id == R.id.no_hsk) {
-
+            ArrayList<Fragment> fragments=new ArrayList<Fragment>();
+            for(int i=0; i<fragments.size(); i++)
+                getSupportFragmentManager().beginTransaction().remove(fragments.get(i)).commit();
+            fragments.clear();
+            mPager.setAdapter(mNoHskPagerAdapter);
+            myToolbar.setTitle(R.string.title_no_hsk);
         } else if (id == R.id.to_repeat) {
-
+            ArrayList<Fragment> fragments=new ArrayList<Fragment>();
+            for(int i=0; i<fragments.size(); i++)
+                getSupportFragmentManager().beginTransaction().remove(fragments.get(i)).commit();
+            fragments.clear();
+            mPager.setAdapter(mToRepeatPagerAdapter);
+            myToolbar.setTitle(R.string.title_to_repeat);
         } else if (id == R.id.all) {
             ArrayList<Fragment> fragments=new ArrayList<Fragment>();
             for(int i=0; i<fragments.size(); i++)
                 getSupportFragmentManager().beginTransaction().remove(fragments.get(i)).commit();
             fragments.clear();
             mPager.setAdapter(mAllPagerAdapter);
+            myToolbar.setTitle(R.string.title_all);
         }
         mDrawerLayout.closeDrawer(GravityCompat.START);
         return true;

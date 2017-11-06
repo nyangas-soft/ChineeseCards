@@ -24,10 +24,11 @@ class NoHSKJSONArray {
 
     //конструктор
     private NoHSKJSONArray() {
+        myNoHSKJSONarr=new JSONArray();
         Log.d("NoHSKLog","constructor started");
         try {
             for (int i = 0; i < MainJSONArray.getNumPages(); i++) {
-                if (MainJSONArray.getMyJSONobj(i).getString("hsk") == "") {
+                if (MainJSONArray.getMyJSONobj(i).getString("hsk").equals("0")) {
                     myNoHSKJSONarr.put(MainJSONArray.getMyJSONobj(i));
                 }
             }
