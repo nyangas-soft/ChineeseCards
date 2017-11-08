@@ -1,8 +1,11 @@
 package com.internet_of_everything.chineesecards;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.view.PagerAdapter;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
@@ -31,7 +34,26 @@ public class OneCardFragment extends Fragment {
         // Required empty public constructor
     }
 
+    OnRepeatCatalogChangedListener mCallback;
 
+    // Container Activity must implement this interface
+    public interface OnRepeatCatalogChangedListener {
+        public void onRepeatCatalogChanged();
+    }
+
+    @Override
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
+
+        // This makes sure that the container activity has implemented
+        // the callback interface. If not, it throws an exception
+        try {
+            mCallback = (OnRepeatCatalogChangedListener) activity;
+        } catch (ClassCastException e) {
+            throw new ClassCastException(activity.toString()
+                    + " must implement OnHeadlineSelectedListener");
+        }
+    }
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -46,6 +68,8 @@ public class OneCardFragment extends Fragment {
 
         //получаем знаечения из MainActivity
         Log.d("oneCardLog","Id: "+getArguments().getString("ID"));
+        final boolean isOnToRepeatCatalog=getArguments().getString("CATALOG").equals("toRepeat");
+
         final Integer id = Integer.parseInt(getArguments().getString("ID"));
         final String hieroglyph = getArguments().getString("HIERO_ARG");
         final String pinyin = getArguments().getString("PINYIN_ARG").toLowerCase();
@@ -78,7 +102,7 @@ public class OneCardFragment extends Fragment {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
                 InputMethodManager imm = (InputMethodManager) getContext().getSystemService(INPUT_METHOD_SERVICE);
-                boolean toRepeat=true;
+                boolean toRepeat=false;
                 //скрыть клавиатуру
                 imm.hideSoftInputFromWindow(rootView.getWindowToken(), 0);
                 //проверяем значения edit text-ов
@@ -96,7 +120,7 @@ public class OneCardFragment extends Fragment {
                                 }
                                 else {
                                     rusET.setTextColor(Color.RED);
-                                    toRepeat=false;
+                                    toRepeat=true;
                                     Toast toast = Toast.makeText(getContext(),
                                             getString(R.string.right_answer) + russianString,
                                             Toast.LENGTH_SHORT);
@@ -123,7 +147,7 @@ public class OneCardFragment extends Fragment {
                         hieroET.setTextColor(Color.GREEN);
                     } else {
                         hieroET.setTextColor(Color.RED);
-                        toRepeat=false;
+                        toRepeat=true;
                         Toast toast = Toast.makeText(getContext(),
                                 getString(R.string.right_answer) + hieroglyph,
                                 Toast.LENGTH_SHORT);
@@ -137,7 +161,7 @@ public class OneCardFragment extends Fragment {
                         pinyinET.setTextColor(Color.GREEN);
                     } else {
                         pinyinET.setTextColor(Color.RED);
-                        toRepeat=false;
+                        toRepeat=true;
 
                         Toast toast = Toast.makeText(getContext(),
                                 getString(R.string.right_answer) + pinyin,
@@ -148,6 +172,11 @@ public class OneCardFragment extends Fragment {
 
                 if (toRepeat){
                     ToRepeatJSONArray.pushItem(id);
+                } else {
+                    if (isOnToRepeatCatalog) {
+                        ToRepeatJSONArray.removeItem(id);
+                        mCallback.onRepeatCatalogChanged();
+                    }
                 }
 
                 return false;

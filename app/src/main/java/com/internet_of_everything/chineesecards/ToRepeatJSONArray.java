@@ -1,5 +1,6 @@
 package com.internet_of_everything.chineesecards;
 
+import android.content.Intent;
 import android.util.Log;
 
 import org.json.JSONArray;
@@ -82,12 +83,12 @@ public class ToRepeatJSONArray {
     }
 
     //удалить объект из массива
-    public static void removeItem(String index, String hiero)
+    public static void removeItem(int id)
     {
         for (int i=0;i<myJSONarr.length();i++)
         {
             try {
-                if ((myJSONarr.getJSONObject(i).getString("id").equals(index)) && (myJSONarr.getJSONObject(i).getString("hieroglyph").equals(hiero))) {
+                if (Integer.parseInt(myJSONarr.getJSONObject(i).getString("id")) ==id) {
                     myJSONarr.remove(i);
                     break;
                 }

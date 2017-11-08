@@ -1,6 +1,7 @@
 package com.internet_of_everything.chineesecards;
 
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -26,7 +27,7 @@ import android.support.v7.widget.Toolbar;import org.json.JSONException;
 import java.util.ArrayList;
 
 //главная активность
-public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
+public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, OneCardFragment.OnRepeatCatalogChangedListener {
 
      /**
      * The pager widget, which handles animation and allows swiping horizontally to access previous
@@ -49,6 +50,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private NavigationView navigationView;
     private Toolbar myToolbar;
 
+    public void onRepeatCatalogChanged(){
+        mToRepeatPagerAdapter.notifyDataSetChanged();
+    }
 
 
     @Override
@@ -91,6 +95,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         mNoHskPagerAdapter=new NoHskCardsAdapter(getSupportFragmentManager());
         mToRepeatPagerAdapter=new ToRepeatCardsAdapter(getSupportFragmentManager());
         mPager.setAdapter(mAllPagerAdapter);
+
+
+
         ImageButton backButton = (ImageButton)findViewById(R.id.button_back);
         if (mPager.getCurrentItem()==0) {
             backButton.setVisibility(android.view.View.INVISIBLE);
@@ -103,6 +110,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 ImageButton backButton = (ImageButton)findViewById(R.id.button_back);
                 ImageButton nextButton = (ImageButton)findViewById(R.id.button_next);
                 PagerAdapter pagerAdapter=mPager.getAdapter();
+
                 if (mPager.getCurrentItem()==0) {
                     backButton.setVisibility(android.view.View.INVISIBLE);
                 } else {
@@ -167,6 +175,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             }
         });
     }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -258,6 +267,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 bdl.putString("RUS_ARG", MainJSONArray.getMyJSONobj(position).getString("russian"));
                 bdl.putString("RUS_VAR", MainJSONArray.getMyJSONobj(position).getString("russian_var"));
                 bdl.putString("ID", MainJSONArray.getMyJSONobj(position).getString("id"));
+                bdl.putString("CATALOG", "all");
             }
             catch (JSONException e){}
             f.setArguments(bdl);
@@ -296,6 +306,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 bdl.putString("RUS_ARG", HSK1JSONArray.getMyHSK1JSONobj(position).getString("russian"));
                 bdl.putString("RUS_VAR", HSK1JSONArray.getMyHSK1JSONobj(position).getString("russian_var"));
                 bdl.putString("ID", HSK1JSONArray.getMyHSK1JSONobj(position).getString("id"));
+                bdl.putString("CATALOG", "hsk1");
             }
             catch (JSONException e){}
             f.setArguments(bdl);
@@ -334,6 +345,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 bdl.putString("RUS_ARG", HSK2JSONArray.getMyHSK2JSONobj(position).getString("russian"));
                 bdl.putString("RUS_VAR", HSK2JSONArray.getMyHSK2JSONobj(position).getString("russian_var"));
                 bdl.putString("ID", HSK2JSONArray.getMyHSK2JSONobj(position).getString("id"));
+                bdl.putString("CATALOG", "hsk2");
             }
             catch (JSONException e){}
             f.setArguments(bdl);
@@ -372,6 +384,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 bdl.putString("RUS_ARG", NoHSKJSONArray.getMyNoHSKJSONobj(position).getString("russian"));
                 bdl.putString("RUS_VAR", NoHSKJSONArray.getMyNoHSKJSONobj(position).getString("russian_var"));
                 bdl.putString("ID", NoHSKJSONArray.getMyNoHSKJSONobj(position).getString("id"));
+                bdl.putString("CATALOG", "noHsk");
             } catch (JSONException e) {
             }
             f.setArguments(bdl);
@@ -413,6 +426,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 bdl.putString("RUS_ARG", ToRepeatJSONArray.getMyToRepeatJSONobj(position).getString("russian"));
                 bdl.putString("RUS_VAR", ToRepeatJSONArray.getMyToRepeatJSONobj(position).getString("russian_var"));
                 bdl.putString("ID", ToRepeatJSONArray.getMyToRepeatJSONobj(position).getString("id"));
+                bdl.putString("CATALOG", "toRepeat");
             } catch (JSONException e) {
             }
             f.setArguments(bdl);
