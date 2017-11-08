@@ -81,17 +81,20 @@ public class ToRepeatJSONArray {
         } catch (Exception e){}
         if (!itemExists) {
             myJSONarr.put(MainJSONArray.getMyJSONobj(MainJSONArray.getObjectById(id)));
+            writeToFile();
         }
     }
 
     //удалить объект из массива
     public static void removeItem(int id)
     {
+        Log.d("toRepeatLog","remove item");
         for (int i=0;i<myJSONarr.length();i++)
         {
             try {
                 if (Integer.parseInt(myJSONarr.getJSONObject(i).getString("id")) ==id) {
                     myJSONarr.remove(i);
+                    writeToFile();
                     break;
                 }
             } catch (JSONException e){}
@@ -99,9 +102,10 @@ public class ToRepeatJSONArray {
     }
 
     //записать массив в файл
-    public static void writeToFile()
+    private static void writeToFile()
     {
-        Log.d("toRepeatLog","onDestroy from class");
+
+        Log.d("toRepeatLog","json arr to repeat: "+myJSONarr.toString());
         try
         {
             File dir = MainActivity.context.getFilesDir();
@@ -111,7 +115,7 @@ public class ToRepeatJSONArray {
             String string="{\"toRepeat\": "+myJSONarr.toString()+"}";
             file.write(string);
             file.close();
-            Log.d("toRepeatLog","writing file ok");
+            Log.d("toRepeatLog","writing file ok: "+string);
         }
         catch(FileNotFoundException e)
         {

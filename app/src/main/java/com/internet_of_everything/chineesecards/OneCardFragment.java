@@ -107,20 +107,26 @@ public class OneCardFragment extends Fragment {
                 imm.hideSoftInputFromWindow(rootView.getWindowToken(), 0);
                 //проверяем значения edit text-ов
                 //перевод
-                if ((rusET.getVisibility()==View.VISIBLE)&&!("".equals(rusET.getText().toString()))) {
+                if ((rusET.getVisibility()==View.VISIBLE)
+                        &&!("".equals(rusET.getText().toString()))
+                ) {
+                    Log.d("fragmentLog", "point 1 ="+toRepeat);
                     for (int i = 0; i < russian.length; i++) {
                         if (russian[i].equals(rusET.getText().toString())) {
+                            Log.d("fragmentLog", "point 7 "+toRepeat);
                             rusET.setTextColor(Color.GREEN);
                             break;
                         } else {
                             for (int j = 0; j < russianVar.length; j++) {
-                                if (russianVar[j].equals(rusET.getText().toString())) {
+                                if (russianVar[j].equals(rusET.getText().toString())&&!("".equals(rusET.getText().toString()))) {
+                                    Log.d("fragmentLog", "point 8 "+toRepeat);
                                     rusET.setTextColor(Color.GREEN);
                                     break;
                                 }
                                 else {
                                     rusET.setTextColor(Color.RED);
                                     toRepeat=true;
+                                    Log.d("fragmentLog", "point 6 "+toRepeat);
                                     Toast toast = Toast.makeText(getContext(),
                                             getString(R.string.right_answer) + russianString,
                                             Toast.LENGTH_SHORT);
@@ -129,6 +135,10 @@ public class OneCardFragment extends Fragment {
                             }
 
                         }
+                    }
+                } else {
+                    if ((rusET.getVisibility()==View.VISIBLE)&&("".equals(rusET.getText().toString()))&&(isOnToRepeatCatalog)){
+                        toRepeat=true;
                     }
                 }
                 //иероглиф
@@ -142,38 +152,58 @@ public class OneCardFragment extends Fragment {
                         hieroET.setTextSize(100);
                     }
                 }
-                if ((hieroET.getVisibility()==View.VISIBLE)&&!("".equals(hieroET.getText().toString()))) {
+                if ((hieroET.getVisibility()==View.VISIBLE)
+                        &&!("".equals(hieroET.getText().toString()))
+                ) {
+                    Log.d("fragmentLog", "point 2 "+toRepeat);
                     if (hieroglyph.equalsIgnoreCase(hieroET.getText().toString())) {
                         hieroET.setTextColor(Color.GREEN);
                     } else {
                         hieroET.setTextColor(Color.RED);
                         toRepeat=true;
+                        Log.d("fragmentLog", "point 5"+toRepeat);
                         Toast toast = Toast.makeText(getContext(),
                                 getString(R.string.right_answer) + hieroglyph,
                                 Toast.LENGTH_SHORT);
                         //toast.show();
                     }
+                } else {
+                    if ((hieroET.getVisibility()==View.VISIBLE)
+                            &&("".equals(hieroET.getText().toString()))&&isOnToRepeatCatalog){
+                        toRepeat=true;
+                    }
                 }
 
                 //Пиньинь
-                if ((pinyinET.getVisibility()==View.VISIBLE)&&!("".equals(pinyinET.getText().toString()))) {
+                if ((pinyinET.getVisibility()==View.VISIBLE)
+                        &&!("".equals(pinyinET.getText().toString()))
+                ) {
+                    Log.d("fragmentLog", "point 3"+toRepeat);
                     if ((pinyin.equalsIgnoreCase(pinyinET.getText().toString())) || (pinyin_dig.equalsIgnoreCase(pinyinET.getText().toString()))) {
                         pinyinET.setTextColor(Color.GREEN);
                     } else {
                         pinyinET.setTextColor(Color.RED);
                         toRepeat=true;
+                        Log.d("fragmentLog", "point 4 "+toRepeat);
 
                         Toast toast = Toast.makeText(getContext(),
                                 getString(R.string.right_answer) + pinyin,
                                 Toast.LENGTH_SHORT);
                        // toast.show();
                     }
+                } else {
+                    if ((pinyinET.getVisibility()==View.VISIBLE)
+                            &&("".equals(pinyinET.getText().toString()))&&isOnToRepeatCatalog) {
+                        toRepeat=true;
+                    }
                 }
 
                 if (toRepeat){
                     ToRepeatJSONArray.pushItem(id);
+                    mCallback.onRepeatCatalogChanged();
                 } else {
                     if (isOnToRepeatCatalog) {
+                        Log.d("fragmentLog", "to repeat bool="+toRepeat);
                         ToRepeatJSONArray.removeItem(id);
                         mCallback.onRepeatCatalogChanged();
                     }
@@ -221,6 +251,7 @@ public class OneCardFragment extends Fragment {
                             else {
                                 hieroET.setTextColor(Color.RED);
                                 ToRepeatJSONArray.pushItem(id);
+                                mCallback.onRepeatCatalogChanged();
                                 InputMethodManager imm = (InputMethodManager) getContext().getSystemService(INPUT_METHOD_SERVICE);
                                 imm.hideSoftInputFromWindow(getActivity().getCurrentFocus().getWindowToken(), 0);
                                 Toast toast = Toast.makeText(getContext(),
@@ -259,6 +290,7 @@ public class OneCardFragment extends Fragment {
                             else {
                                 pinyinET.setTextColor(Color.RED);
                                 ToRepeatJSONArray.pushItem(id);
+                                mCallback.onRepeatCatalogChanged();
                                 InputMethodManager imm = (InputMethodManager) getContext().getSystemService(INPUT_METHOD_SERVICE);
                                 imm.hideSoftInputFromWindow(getActivity().getCurrentFocus().getWindowToken(), 0);
                                 Toast toast = Toast.makeText(getContext(),
@@ -316,6 +348,7 @@ public class OneCardFragment extends Fragment {
                                         else {
                                             rusET.setTextColor(Color.RED);
                                             ToRepeatJSONArray.pushItem(id);
+                                            mCallback.onRepeatCatalogChanged();
                                             Toast toast = Toast.makeText(getContext(),
                                                     getString(R.string.right_answer) + russianString,
                                                     Toast.LENGTH_SHORT);

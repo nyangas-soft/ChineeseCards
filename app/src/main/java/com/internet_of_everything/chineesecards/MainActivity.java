@@ -55,20 +55,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     }
 
     @Override
-    protected void onPause () {
-        Log.d("toRepeatLog","onDestroy from activity");
-        ToRepeatJSONArray.writeToFile();
-        super.onPause();
-
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-
-    }
-
-    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
@@ -86,7 +72,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         // enable ActionBar app icon to behave as action to toggle nav drawer
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
          getSupportActionBar().setHomeButtonEnabled(true);
-
 
         // ActionBarDrawerToggle ties together the the proper interactions
         // between the sliding drawer and the action bar app icon
@@ -108,8 +93,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         mNoHskPagerAdapter=new NoHskCardsAdapter(getSupportFragmentManager());
         mToRepeatPagerAdapter=new ToRepeatCardsAdapter(getSupportFragmentManager());
         mPager.setAdapter(mAllPagerAdapter);
-
-
 
         ImageButton backButton = (ImageButton)findViewById(R.id.button_back);
         if (mPager.getCurrentItem()==0) {
@@ -496,6 +479,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             fragments.clear();
             mPager.setAdapter(mToRepeatPagerAdapter);
             myToolbar.setTitle(R.string.title_to_repeat);
+            Log.d("toRepeatLog","Open to repeat catalog");
         } else if (id == R.id.all) {
             ArrayList<Fragment> fragments=new ArrayList<Fragment>();
             for(int i=0; i<fragments.size(); i++)
