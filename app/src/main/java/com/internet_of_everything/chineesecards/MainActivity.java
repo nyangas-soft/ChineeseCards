@@ -54,6 +54,19 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         mToRepeatPagerAdapter.notifyDataSetChanged();
     }
 
+    @Override
+    protected void onPause () {
+        Log.d("toRepeatLog","onDestroy from activity");
+        ToRepeatJSONArray.writeToFile();
+        super.onPause();
+
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -494,6 +507,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         mDrawerLayout.closeDrawer(GravityCompat.START);
         return true;
     }
+
 
 
 }

@@ -9,6 +9,7 @@ import org.json.JSONObject;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
@@ -57,6 +58,7 @@ public class ToRepeatJSONArray {
                 Log.d("toRepeatLog","json arr fail");
             }
         }  catch (IOException e){
+            Log.d("toRepeatLog","no file ");
 
         }
 
@@ -97,17 +99,24 @@ public class ToRepeatJSONArray {
     }
 
     //записать массив в файл
-    public static void writeToFile(String string)
+    public static void writeToFile()
     {
+        Log.d("toRepeatLog","onDestroy from class");
         try
         {
+            File dir = MainActivity.context.getFilesDir();
+            File file0 = new File(dir, Integer.toString(R.string.file_to_repeat_name));
+            boolean deleted = file0.delete();
             BufferedWriter file=new BufferedWriter(new OutputStreamWriter(MainActivity.context.openFileOutput(Integer.toString(R.string.file_to_repeat_name),MODE_PRIVATE)));
+            String string="{\"toRepeat\": "+myJSONarr.toString()+"}";
             file.write(string);
             file.close();
+            Log.d("toRepeatLog","writing file ok");
         }
         catch(FileNotFoundException e)
         {
             e.printStackTrace();
+            Log.d("toRepeatLog","writing file fail");
 
         }
         catch(IOException e)
