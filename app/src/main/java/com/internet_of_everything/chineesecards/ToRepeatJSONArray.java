@@ -29,7 +29,7 @@ public class ToRepeatJSONArray {
     private static final ToRepeatJSONArray ourInstance = new ToRepeatJSONArray();
 
     //массив из файла
-    private static JSONArray myJSONarr=new JSONArray();
+    private static JSONArray myJSONarr;
 
     static ToRepeatJSONArray getInstance() {
         return ourInstance;

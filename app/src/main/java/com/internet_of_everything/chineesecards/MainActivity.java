@@ -252,7 +252,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         @Override
         public Fragment getItem(int position) {
             OneCardFragment f = new OneCardFragment();
-            Bundle bdl = new Bundle(5);
+            Bundle bdl = new Bundle(7);
 
             //передаем все необходимые поля:
             //иероглиф, пиньинь и перевод
@@ -291,7 +291,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         @Override
         public Fragment getItem(int position) {
             OneCardFragment f = new OneCardFragment();
-            Bundle bdl = new Bundle(5);
+            Bundle bdl = new Bundle(7);
 
             //передаем все необходимые поля:
             //иероглиф, пиньинь и перевод
@@ -330,7 +330,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         @Override
         public Fragment getItem(int position) {
             OneCardFragment f = new OneCardFragment();
-            Bundle bdl = new Bundle(5);
+            Bundle bdl = new Bundle(7);
 
             //передаем все необходимые поля:
             //иероглиф, пиньинь и перевод
@@ -369,7 +369,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         @Override
         public Fragment getItem(int position) {
             OneCardFragment f = new OneCardFragment();
-            Bundle bdl = new Bundle(5);
+            Bundle bdl = new Bundle(7);
 
             //передаем все необходимые поля:
             //иероглиф, пиньинь и перевод
@@ -411,7 +411,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         @Override
         public Fragment getItem(int position) {
             OneCardFragment f = new OneCardFragment();
-            Bundle bdl = new Bundle(5);
+            Bundle bdl = new Bundle(7);
 
             //передаем все необходимые поля:
             //иероглиф, пиньинь и перевод
