@@ -28,3 +28,8 @@ public interface CardDao {
    void delete(Card card);
  
 }
+
+@Database(entities = {Card.class}, version = 1)
+public abstract class AppDatabase extends RoomDatabase {
+   public abstract CardDao cardDao();
+}
