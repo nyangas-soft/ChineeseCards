@@ -2,8 +2,8 @@ public class DataBaseHelper extends SQLiteOpenHelper{
 
     // путь к базе данных
     private static String DB_PATH = "/data/data/chineesecards/databases/";
-    private static String DB_NAME = "cardsBase";
-    private SQLiteDatabase myCardsBase;
+    private static String DB_NAME = "Card";
+    private SQLiteDatabase myCard;
     private final Context mContext;
 
     /**
@@ -85,13 +85,13 @@ public class DataBaseHelper extends SQLiteOpenHelper{
     public void openDataBase() throws SQLException{
     	//открываем БД
         String myPath = DB_PATH + DB_NAME;
-    	myDataBase = SQLiteDatabase.openDatabase(myPath, null, SQLiteDatabase.OPEN_READONLY);
+    	myCard = SQLiteDatabase.openDatabase(myPath, null, SQLiteDatabase.OPEN_READONLY);
     }
 
     @Override
 	public synchronized void close() {
-    	    if(myDataBase != null)
-    		    myDataBase.close();
+    	    if(myCard != null)
+    		    myCard.close();
     	    super.close();
 	}
 
