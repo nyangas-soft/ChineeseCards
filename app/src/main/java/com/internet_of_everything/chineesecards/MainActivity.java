@@ -44,6 +44,21 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         context=this;
+         
+        DataBaseHelper myDbHelper = new DataBaseHelper(this);
+        myDbHelper = new DataBaseHelper(this);
+
+        try {
+	      myDbHelper.createDataBase();
+        } catch (IOException ioe) {
+           throw new Error("Unable to create database");
+        }
+
+        try {
+	       myDbHelper.openDataBase();
+        }catch(SQLException sqle){
+	          throw sqle;
+        }
 
         // Instantiate a ViewPager and a PagerAdapter.
         mPager = (ViewPager) findViewById(R.id.pager);
