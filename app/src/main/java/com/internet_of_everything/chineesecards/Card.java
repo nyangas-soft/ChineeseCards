@@ -5,7 +5,6 @@ public class Card {
    public String hiero; 
    public String pinyin;
    public long level;
-   public long subject_id;
    public boolean isAnswered;
    
 }
