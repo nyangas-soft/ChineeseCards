@@ -1,11 +1,10 @@
 package com.internet_of_everything.chineesecards;
 
-import android.app.Activity;
-import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.renderscript.ScriptGroup;
 import android.support.v4.app.Fragment;
-import android.support.v4.view.PagerAdapter;
+import android.text.InputType;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
@@ -15,12 +14,8 @@ import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import static android.content.Context.INPUT_METHOD_SERVICE;
 
@@ -34,26 +29,7 @@ public class OneCardFragment extends Fragment {
         // Required empty public constructor
     }
 
-    OnRepeatCatalogChangedListener mCallback;
 
-    // Container Activity must implement this interface
-    public interface OnRepeatCatalogChangedListener {
-        public void onRepeatCatalogChanged();
-    }
-
-    @Override
-    public void onAttach(Activity activity) {
-        super.onAttach(activity);
-
-        // This makes sure that the container activity has implemented
-        // the callback interface. If not, it throws an exception
-        try {
-            mCallback = (OnRepeatCatalogChangedListener) activity;
-        } catch (ClassCastException e) {
-            throw new ClassCastException(activity.toString()
-                    + " must implement OnHeadlineSelectedListener");
-        }
-    }
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -67,10 +43,6 @@ public class OneCardFragment extends Fragment {
         final EditText pinyinET = (EditText) rootView.findViewById(R.id.editPinyin);
 
         //получаем знаечения из MainActivity
-        Log.d("oneCardLog","Id: "+getArguments().getString("ID"));
-        final boolean isOnToRepeatCatalog=getArguments().getString("CATALOG").equals("toRepeat");
-
-        final Integer id = Integer.parseInt(getArguments().getString("ID"));
         final String hieroglyph = getArguments().getString("HIERO_ARG");
         final String pinyin = getArguments().getString("PINYIN_ARG").toLowerCase();
         final String pinyin_dig = getArguments().getString("PINYIN_DIG");
@@ -102,31 +74,23 @@ public class OneCardFragment extends Fragment {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
                 InputMethodManager imm = (InputMethodManager) getContext().getSystemService(INPUT_METHOD_SERVICE);
-                boolean toRepeat=false;
                 //скрыть клавиатуру
                 imm.hideSoftInputFromWindow(rootView.getWindowToken(), 0);
                 //проверяем значения edit text-ов
                 //перевод
-                if ((rusET.getVisibility()==View.VISIBLE)
-                        &&!("".equals(rusET.getText().toString()))
-                ) {
-                    Log.d("fragmentLog", "point 1 ="+toRepeat);
+                if ((rusET.getVisibility()==View.VISIBLE)&&!("".equals(rusET.getText().toString()))) {
                     for (int i = 0; i < russian.length; i++) {
                         if (russian[i].equals(rusET.getText().toString())) {
-                            Log.d("fragmentLog", "point 7 "+toRepeat);
                             rusET.setTextColor(Color.GREEN);
                             break;
                         } else {
                             for (int j = 0; j < russianVar.length; j++) {
-                                if (russianVar[j].equals(rusET.getText().toString())&&!("".equals(rusET.getText().toString()))) {
-                                    Log.d("fragmentLog", "point 8 "+toRepeat);
+                                if (russianVar[j].equals(rusET.getText().toString())) {
                                     rusET.setTextColor(Color.GREEN);
                                     break;
                                 }
                                 else {
                                     rusET.setTextColor(Color.RED);
-                                    toRepeat=true;
-                                    Log.d("fragmentLog", "point 6 "+toRepeat);
                                     Toast toast = Toast.makeText(getContext(),
                                             getString(R.string.right_answer) + russianString,
                                             Toast.LENGTH_SHORT);
@@ -135,10 +99,6 @@ public class OneCardFragment extends Fragment {
                             }
 
                         }
-                    }
-                } else {
-                    if ((rusET.getVisibility()==View.VISIBLE)&&("".equals(rusET.getText().toString()))&&(isOnToRepeatCatalog)){
-                        toRepeat=true;
                     }
                 }
                 //иероглиф
@@ -152,60 +112,29 @@ public class OneCardFragment extends Fragment {
                         hieroET.setTextSize(100);
                     }
                 }
-                if ((hieroET.getVisibility()==View.VISIBLE)
-                        &&!("".equals(hieroET.getText().toString()))
-                ) {
-                    Log.d("fragmentLog", "point 2 "+toRepeat);
+                if ((hieroET.getVisibility()==View.VISIBLE)&&!("".equals(hieroET.getText().toString()))) {
                     if (hieroglyph.equalsIgnoreCase(hieroET.getText().toString())) {
                         hieroET.setTextColor(Color.GREEN);
                     } else {
                         hieroET.setTextColor(Color.RED);
-                        toRepeat=true;
-                        Log.d("fragmentLog", "point 5"+toRepeat);
                         Toast toast = Toast.makeText(getContext(),
                                 getString(R.string.right_answer) + hieroglyph,
                                 Toast.LENGTH_SHORT);
                         //toast.show();
                     }
-                } else {
-                    if ((hieroET.getVisibility()==View.VISIBLE)
-                            &&("".equals(hieroET.getText().toString()))&&isOnToRepeatCatalog){
-                        toRepeat=true;
-                    }
                 }
 
                 //Пиньинь
-                if ((pinyinET.getVisibility()==View.VISIBLE)
-                        &&!("".equals(pinyinET.getText().toString()))
-                ) {
-                    Log.d("fragmentLog", "point 3"+toRepeat);
+                if ((pinyinET.getVisibility()==View.VISIBLE)&&!("".equals(pinyinET.getText().toString()))) {
                     if ((pinyin.equalsIgnoreCase(pinyinET.getText().toString())) || (pinyin_dig.equalsIgnoreCase(pinyinET.getText().toString()))) {
                         pinyinET.setTextColor(Color.GREEN);
                     } else {
                         pinyinET.setTextColor(Color.RED);
-                        toRepeat=true;
-                        Log.d("fragmentLog", "point 4 "+toRepeat);
 
                         Toast toast = Toast.makeText(getContext(),
                                 getString(R.string.right_answer) + pinyin,
                                 Toast.LENGTH_SHORT);
                        // toast.show();
-                    }
-                } else {
-                    if ((pinyinET.getVisibility()==View.VISIBLE)
-                            &&("".equals(pinyinET.getText().toString()))&&isOnToRepeatCatalog) {
-                        toRepeat=true;
-                    }
-                }
-
-                if (toRepeat){
-                    ToRepeatJSONArray.pushItem(id);
-                    mCallback.onRepeatCatalogChanged();
-                } else {
-                    if (isOnToRepeatCatalog) {
-                        Log.d("fragmentLog", "to repeat bool="+toRepeat);
-                        ToRepeatJSONArray.removeItem(id);
-                        mCallback.onRepeatCatalogChanged();
                     }
                 }
 
@@ -250,8 +179,6 @@ public class OneCardFragment extends Fragment {
                             }
                             else {
                                 hieroET.setTextColor(Color.RED);
-                                ToRepeatJSONArray.pushItem(id);
-                                mCallback.onRepeatCatalogChanged();
                                 InputMethodManager imm = (InputMethodManager) getContext().getSystemService(INPUT_METHOD_SERVICE);
                                 imm.hideSoftInputFromWindow(getActivity().getCurrentFocus().getWindowToken(), 0);
                                 Toast toast = Toast.makeText(getContext(),
@@ -289,8 +216,6 @@ public class OneCardFragment extends Fragment {
                             }
                             else {
                                 pinyinET.setTextColor(Color.RED);
-                                ToRepeatJSONArray.pushItem(id);
-                                mCallback.onRepeatCatalogChanged();
                                 InputMethodManager imm = (InputMethodManager) getContext().getSystemService(INPUT_METHOD_SERVICE);
                                 imm.hideSoftInputFromWindow(getActivity().getCurrentFocus().getWindowToken(), 0);
                                 Toast toast = Toast.makeText(getContext(),
@@ -347,8 +272,6 @@ public class OneCardFragment extends Fragment {
                                         }
                                         else {
                                             rusET.setTextColor(Color.RED);
-                                            ToRepeatJSONArray.pushItem(id);
-                                            mCallback.onRepeatCatalogChanged();
                                             Toast toast = Toast.makeText(getContext(),
                                                     getString(R.string.right_answer) + russianString,
                                                     Toast.LENGTH_SHORT);
@@ -366,7 +289,6 @@ public class OneCardFragment extends Fragment {
                 });
             }
         }
-
         return rootView;
     }
 
